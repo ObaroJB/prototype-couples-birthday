@@ -252,16 +252,16 @@
 
         /* ────────────────────────────────────────────────
            ALL STEPS SCROLLABLE ON SMALL / SHORT SCREENS
+           + HIDE SCROLLBAR COMPLETELY (including flash)
         ──────────────────────────────────────────────── */
         @media (max-height: 750px) {
             .step {
                 overflow-y: auto;
-                -webkit-overflow-scrolling: touch;   /* smooth iOS scrolling */
-                max-height: 82vh;                     /* leaves room for progress bar + safe areas */
-                padding-bottom: 7rem;                 /* extra space at bottom so last button is reachable */
+                -webkit-overflow-scrolling: touch;
+                max-height: 82vh;
+                padding-bottom: 7rem;
             }
 
-            /* Give more breathing room inside scrollable areas */
             .step .bento-grid,
             .step p,
             .step h2,
@@ -275,7 +275,6 @@
             }
         }
 
-        /* Extra safety for very small heights (e.g. iPhone SE, older devices) */
         @media (max-height: 680px) {
             .step {
                 max-height: 76vh;
@@ -283,9 +282,41 @@
             }
         }
 
-        /* Safe area inset support (modern iPhones, etc.) */
+        /* Safe area inset support */
         .step {
             padding-bottom: calc(2rem + env(safe-area-inset-bottom));
+        }
+
+        /* ────────────────────────────────────────────────
+           Completely hide scrollbar – including during scroll
+        ──────────────────────────────────────────────── */
+        .step {
+            overflow-x: hidden;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* WebKit browsers (Safari iOS, Chrome Android, etc.) */
+        .step::-webkit-scrollbar {
+            width: 0 !important;
+            height: 0 !important;
+            background: transparent !important;
+        }
+
+        .step::-webkit-scrollbar-track,
+        .step::-webkit-scrollbar-thumb {
+            background: transparent !important;
+            border: none !important;
+        }
+
+        /* Firefox */
+        .step {
+            scrollbar-width: none !important;
+        }
+
+        /* Edge / IE legacy */
+        .step {
+            -ms-overflow-style: none !important;
         }
     </style>
 </head>
